@@ -9,6 +9,7 @@ import { errorHandler } from "./middleware/error";
 import { rateLimiter } from "./middleware/rateLimit";
 import { requestLogger } from "./middleware/requestLogger";
 import { config } from "dotenv";
+import cors from "cors";
 
 config();
 
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(rateLimiter);
 app.use(requestLogger);
+app.use(cors());
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
